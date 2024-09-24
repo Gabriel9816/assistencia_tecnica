@@ -1,0 +1,32 @@
+name: Deploy Assistencia Tecnica
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checar código
+        uses: actions/checkout@v2
+
+      - name: Configurar Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Instalar dependências
+        run: |
+          pip install -r requirements.txt
+
+      - name: Testar a aplicação
+        run: |
+          python -m unittest discover  # Se você tiver testes automatizados
+
+      - name: Construir e rodar Docker
+        run: |
+          docker build -t assistencia_tecnica .
+          docker run -d -p 5000:5000 assistencia_tecnica
