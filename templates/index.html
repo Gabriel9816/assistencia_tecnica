@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Bem-vindo à Assistência Técnica</h1>
+<p>Gerencie seus clientes e chamados de forma eficiente.</p>
+
+<a href="{{ url_for('cadastrar_cliente') }}" class="btn btn-primary">Cadastrar Cliente</a>
+<a href="{{ url_for('registrar_chamado') }}" class="btn btn-secondary">Registrar Chamado</a>
+<a href="{{ url_for('enviar_email_route') }}" class="btn btn-info">Enviar Email</a>
+{% endblock %}

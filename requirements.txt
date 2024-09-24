@@ -1,0 +1,7 @@
+Flask
+pymongo
+dnspython
+email-validator
+flask-login
+celery[redis]
+redis

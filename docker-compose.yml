@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - EMAIL_SENDER=gabriel.oliveira6@estudante.ifms.edu.br
+      - EMAIL_PASSWORD=gyqz nmrm erjy fmqb
+      - MONGO_URI=mongodb+srv://toshiba:toshiba1@sitemadistribuido.ybqco.mongodb.net/?retryWrites=true&w=majority&appName=sitemadistribuido
+      - SECRET_KEY=gyqz nmrm erjy fmqb
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:6.0
+    ports:
+      - "6379:6379"
+
+  worker:
+    build: .
+    command: celery -A celery_worker.celery worker --loglevel=info
+    depends_on:
+      - web
+      - redis
